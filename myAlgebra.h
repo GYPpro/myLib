@@ -42,6 +42,9 @@ public:
     T* targetEntire;
     vector<int> indexs;
     vector<myRealNum> value;
+
+public:
+
 };
 
 class myMathSymbleSpace{//符号空间
@@ -159,6 +162,12 @@ public:
     {
         
     }
+
+    myBasicAlgebraicExpression partialFractionDecomp()//部分分式分解
+    {
+
+    }
+
 };
 
 class myPolynomial:public myLinearEntire{//多项式
@@ -171,6 +180,42 @@ public:
     {
 
     }
+
+    myPolynomial operator+(myPolynomial b)
+    {
+
+    }
+
+    myPolynomial operator-(myPolynomial b)
+    {
+
+    }
+
+    myPolynomial operator*(myPolynomial b)
+    {
+
+    }
+
+    myBasicAlgebraicExpression operator/(myPolynomial b)
+    {
+
+    }
+
+    bool operator==(myPolynomial b)
+    {
+
+    }
+
+    bool operator!=(myPolynomial b)
+    {
+
+    }
+
+    myPolynomial standardDecomp()//标准分解
+    {
+
+    }
+
 };
 
 class myMatrix:public myLinearEntire{//矩阵
@@ -178,7 +223,7 @@ private:
     vector<vector<myBasicAlgebraicExpression>> oriMatrix;//原矩阵数据
     vector<vector<myBasicAlgebraicExpression>> stdMatrix;//标准型
 
-private:
+public:
     myMatrix operator+(myMatrix b)
     {
 
@@ -209,9 +254,100 @@ private:
         
     }
 
+    myRealNum getDet()//求行列式
+    {
+
+    }
+
+    myRealNum getRank()//求秩
+    {
+
+    }
+
+    myRealNum getTrace()//求迹
+    {
+
+    }
+
+    vector<myRealNum> getEigenValue()//求特征值
+    {
+
+    }
+
+    myLinearEntireArr getEigenVector()//求特征向量
+    {
+
+    }
+
+    myMatrix getInverse()//求逆矩阵
+    {
+
+    }
+
+    myMatrix getTranspose()//求转置矩阵
+    {
+
+    }
+
+    myMatrix getAdjoint()//求伴随矩阵
+    {
+
+    }
+
+    myMatrix getStandard()//求标准型
+    {
+
+    }
+
+    myMatrix getRowEchelon()//求行阶梯型
+    {
+
+    }
+
+    myMatrix getDiagonalization()//对角化
+    {
+
+    }
+
+    myMatrix getOrthogonalization()//正交化
+    {
+
+    }
+
+    myMatrix getJordan()//求约当标准型
+    {
+
+    }
+
+    bool isSymmetric()//判断是否对称
+    {
+
+    }
+
+    bool isSkewSymmetric()//判断是否反对称
+    {
+
+    }
+
+    bool isSimilar(myMatrix b)//判断是否相似
+    {
+
+    }
+
+    bool ifOffset(myMatrix b)//判断是否相抵
+    {
+
+    }
+
+    bool ifCongruent(myMatrix b)//判断是否合同
+    {
+
+    }
+    
 };
 
 class myVector:public myLinearEntire{//向量
+vector<myRealNum> oriVector;//原向量数据
 
 
 };
@@ -333,3 +469,4 @@ ostream &operator>>(ostream &is,myRealNum &item)//实数输出
 {
 
 };
+
