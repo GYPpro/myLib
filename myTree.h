@@ -5,13 +5,13 @@
 
 using namespace std;
 
-class pair{
+class mypair{
 public:
     int l;
     int r;
 
 public:
-    pair(int _l,int _r)
+    mypair(int _l,int _r)
     {
         l = _l;
         r = _r;
@@ -178,7 +178,7 @@ public:
 };
 
 class mySegTreeNode{
-    pair area;    //区间
+    mypair area;    //区间
     int leftson;  
     int rightson;
     int parent;
@@ -186,17 +186,39 @@ class mySegTreeNode{
     int sum;
     int maxn;
     int minn;
-    bool isLastNode;//是否为携带数据的页节点
+    bool isLastNode;//是否为携带数据的叶节点
     myTreeNode data;
 }
 
-class mySegTree {
+class mySegTree { //区间最值、单个节点修改
 private:
     vector<mySegTreeNode> treeNode;
 
 public:
-    mySegTree(vector<myTreeNode> _data)
+    mySegTree(vector<int> _data)
     {
+        this->treeNode.push_back(mySegTreeNode());
+        this->treeNode[0].area = mypair(0,_data.size()-1);
+        this->treeNode[0].parent = -1;
+        this->treeNode[0].leftson = 1;
+        this->treeNode[0].rightson = 2;
+        this->treeNode[0].isLastNode = false;
+        this->treeNode[0].maxn = INT_MAX+1;
+        this->treeNode[0].minn = INT_MAX;
+        for(int i = 0;i < _data.size();i ++)
+        {
+            if(_data[i] > maxn) maxn = _data[i];
+            if(_data[i] < minn) minn = _data[i];
+        }
+        buildSegTree(0,_data.size()-1,0);
+    }
+
+    void buildSegTree(int l,int r,int p)
+    {
+        if(l == r)
+        {
+            return;
+        }
         
     }
 
