@@ -8,7 +8,7 @@
             "name": "g++.exe build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\OutputFile\\${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}\\OutputFile\\${fileBasenameNoExtension}.exe",//这里是编译器输出文件夹
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
