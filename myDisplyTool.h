@@ -1,3 +1,6 @@
+#ifndef MY_TIMER
+#include<myTimer.h>
+#endif
 #ifndef _INC_STDIO
 #include <stdio.h>
 #endif
@@ -7,7 +10,7 @@
 #ifndef TIME_H
 #include <time.h>
 #endif
-#include <myTimer.h>
+// #include <myTimer.h>
 // #define long long long long
 using namespace std;
 
@@ -20,11 +23,11 @@ private:
     myTimer timer;              //计时器
 
     enum UPGRADE_TYPE {Linear,Power,Log};
-    UPGRADE_TYPE constomUpdType;
+    UPGRADE_TYPE constomUpdType;//拟合类型
     long double LinearK,        //线性系数
                 PowerK,PowerIdx,//指数系数与幂
                 LogK;           //对数系数
-    bool ifCompleteFitting;
+    bool ifCompleteFitting;     //是否完成拟合
 
     long double LinearTic(unsigned long long int x)
     {
@@ -43,21 +46,36 @@ private:
 
     void Fitting(vector<unsigned long long int> upgradeTicList) 
     {
-        if(ifCompleteFitting) return;
-        if (upgradeTicList.size() != 100) return;
+        if(ifCompleteFitting)
+        {
+            reFitting(upgradeTicList);
+            return;
+        }
+        if (upgradeTicList.size() < 100) return;
+
         ifCompleteFitting = 1;
-        long double LinearCmp = 0;
-        long double PowerCmp = 0;
-        long double LogCmp = 0;
-        LinearK = (long double)(upgradeTicList[99] - upgradeTicList[0])/100.0;
+        long double LinearCmp = 0;   //线性拟合贴合度
+        long double PowerCmp = 0;    //指数拟合贴合度
+        long double LogCmp = 0;      //对数拟合贴合度   
         long double x1 = (long double)49;
         long double y1 = (long double)upgradeTicList[49];
         long double x2 = (long double)99;
         long double y2 = (long double)upgradeTicList[99];
+
+        //完成三项函数拟合
+        LinearK = (long double)(upgradeTicList[99] - upgradeTicList[0])/100.0;
         PowerIdx = log(y2/y1)/log(x2/x1);
         PowerK = y2/(pow(x2,PowerIdx));
         LogK = (y1-y2)/(log(x1)-log(x2));
         
+        for(int i = 1;i < upgradeTicList.size();i ++)
+        {
+            LinearCmp += LinearTic(i) - 
+        }
+    }
+
+    void reFitting(vector<unsigned long long int> &upgradeTicList)
+    {
 
     }
 

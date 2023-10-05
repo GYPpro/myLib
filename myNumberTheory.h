@@ -24,8 +24,7 @@ public:
     };
     myPair()
     {
-        a = 0;
-        b = 0;    
+         
     };
     bool operator==(myPair c)
     {

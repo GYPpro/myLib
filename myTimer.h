@@ -1,3 +1,4 @@
+#define MY_TIMER
 #ifndef TIME_H
 #include <time.h>
 #endif
@@ -131,4 +132,5 @@ public:
         for(int i = 1;i < recTicList.size();i ++) returnValue.push_back(recTicList[i]);
         return returnValuel;
     }
+
 };
