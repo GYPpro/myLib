@@ -12,14 +12,14 @@
 #endif
 // #include <myTimer.h>
 // #define long long long long
-using namespace std;
 
 class myPrc{
 private:
     unsigned long long int TTL; //进度条最大值
     unsigned long long int Rec; //目前值
     unsigned long long int Wed; //输出宽度 
-    string mes;                 //进度条文本
+    unsigned long long int ltr; //目前进度条走到哪了
+    std::string mes;            //进度条文本
     myTimer timer;              //计时器
 
     enum UPGRADE_TYPE {Linear,Power,Log};
@@ -28,6 +28,9 @@ private:
                 PowerK,PowerIdx,//指数系数与幂
                 LogK;           //对数系数
     bool ifCompleteFitting;     //是否完成拟合
+    unsigned long long int nextUpdateIdx;
+
+    std::string ral = "-\\|/";
 
     long double LinearTic(unsigned long long int x)
     {
@@ -44,7 +47,12 @@ private:
         return LogK * log(x);
     }
 
-    void Fitting(vector<unsigned long long int> upgradeTicList) 
+    void UpdatePrc()
+    {
+        
+    }
+
+    void Fitting(std::vector<unsigned long long int> upgradeTicList) //TODO：非线性拟合
     {
         if(ifCompleteFitting)
         {
@@ -56,7 +64,7 @@ private:
         ifCompleteFitting = 1;
         long double LinearCmp = 0;   //线性拟合贴合度
         long double PowerCmp = 0;    //指数拟合贴合度
-        long double LogCmp = 0;      //对数拟合贴合度   
+        long double LogCmp = 0;      //对数拟合贴合度
         long double x1 = (long double)49;
         long double y1 = (long double)upgradeTicList[49];
         long double x2 = (long double)99;
@@ -72,56 +80,87 @@ private:
         {
             LinearCmp += LinearTic(i) - 
         }
+        return;
     }
 
-    void reFitting(vector<unsigned long long int> &upgradeTicList)
+    void reFitting(std::vector<unsigned long long int> &upgradeTicList)
     {
 
+        return;
     }
 
+    void LinearFitting()
+    {
+        unsigned long long int durTime = timer.getDurFromInit();
+        LinearK = (long double)durTime/(long double)Rec;
+        ifCompleteFitting = true;
+        constomUpdType = Linear;
+        return;
+    }
+    
 public:
-    myPrc(unsigned long long int _TTL,unsigned long long int _Wed,string _mes)
+    myPrc(unsigned long long int _TTL,unsigned long long int _Wed,std::string _mes)
     {
         TTL = _TTL;
         Rec = 0;
         Wed = _Wed;
         mes = _mes;
         ifCompleteFitting = 0;
+        nextUpdateIdx = 1;
         timer.reset();
+        return this;
     }
+
     myPrc()
     {
         TTL = 1;
         Rec = 0;
         Wed = 50;
         ifCompleteFitting = 0;
+        nextUpdateIdx = 1;
         mes = "PrcInitError\n";
         timer.reset();
+        return this;
     }
+
     void reset()
     {
         Rec = 0;
         timer.reset();
+        return;
     }
-    void update()
+
+    void update()// [----...----]00.00%:s\n
     {
         Rec ++;
+        if(Rec > nextUpdateIdx)
+        {
+            LinearFitting();
+            unsigned long long int newltr = Rec*Wed/TTL;
 
+        } else return;
+        return;
+    }
+
+    void finished()
+    {
+
+        return;
     }
 
 };
 
-void UpdatePrc(long long int TTL,long long int Rec,long long int Wed,string s)
-{
-    system("cls");
-    double p = (double)Rec / (double) TTL;
-    printf("%.2lf",p * 100);
-    cout << "% [ " ;
-    long long int num = (long long int)((double)Wed * p);
-    for (int i = 0;i < num;i ++)
-        cout << "-";
-    for(int i = num;i < Wed;i ++)
-        cout << " ";
-    cout << " ]:" << s;
-    cout << endl;
-}
+// void UpdatePrc(long long int TTL,long long int Rec,long long int Wed,std::string s)
+// {
+//     system("cls");
+//     double p = (double)Rec / (double) TTL;
+//     printf("%.2lf",p * 100);
+//     cout << "% [ " ;
+//     long long int num = (long long int)((double)Wed * p);
+//     for (int i = 0;i < num;i ++)
+//         cout << "-";
+//     for(int i = num;i < Wed;i ++)
+//         cout << " ";
+//     cout << " ]:" << s;
+//     cout << endl;
+// }

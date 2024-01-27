@@ -12,6 +12,31 @@
 #include <iostream>
 #endif
 
+void printTime(long double sec)
+{
+    int min = (int)sec / 60;
+    int hour = min / 60;
+    int day = hour / 24;
+    int year = day / 365;
+    if(year > 0){
+        printf("%dy ",year);
+        day -= year * 365;
+    }
+    if(day > 0){
+        printf("%dd ",day);
+        hour -= day * 24;
+    }
+    if(hour > 0){
+        printf("%dh ",hour);
+        min -= hour * 60;
+    }
+    if(min > 0){
+        printf("%dm ",min);
+        sec -= min * 60;
+    }
+    printf("%.3lfs ",(double)sec);
+}
+
 class myTimer{
 private:
     unsigned long long int initTic;
@@ -22,33 +47,8 @@ private:
     {
         nowTic = (unsigned long long int)clock();
     }
-
+    
 public:
-
-    void printTime(long double sec)
-    {
-        int min = (int)sec / 60;
-        int hour = min / 60;
-        int day = hour / 24;
-        int year = day / 365;
-        if(year > 0){
-            printf("%dy ",year);
-            day -= year * 365;
-        }
-        if(day > 0){
-            printf("%dd ",day);
-            hour -= day * 24;
-        }
-        if(hour > 0){
-            printf("%dh ",hour);
-            min -= hour * 60;
-        }
-        if(min > 0){
-            printf("%dm ",min);
-            sec -= min * 60;
-        }
-        printf("%.3lfs ",sec);
-    }
 
     myTimer()
     {
@@ -116,21 +116,21 @@ public:
         return duration;
     }
 
-    unsigned long long int getAvgLast()
+    long double getAvgLast()
     {
         unsigned long long int sum = 0;
         if(recTicList.size() < 2)
             return 0;
         for(int i = 1;i < recTicList.size()-1;i ++)
             sum += recTicList[i] - recTicList[i-1];
-        return sum / (recTicList.size() - 1);
+        return (long double)sum / (long double)(recTicList.size() - 1);
     }
-    
-    vector<unsigned long long int> getRecTicList()
+
+    std::vector<unsigned long long int> getRecTicList()
     {
-        vector<unsigned long long int> returnValue;
+        std::vector<unsigned long long int> returnValue;
         for(int i = 1;i < recTicList.size();i ++) returnValue.push_back(recTicList[i]);
-        return returnValuel;
+        return returnValue;
     }
 
 };

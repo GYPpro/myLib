@@ -48,7 +48,6 @@ public:
 
     int Get_Rand_Int_mod(int min,int max)
     {
-        srand(RandSeed);
         int r = rand();
         return (int)((r * (max - min))/(RAND_MAX) + min);
     }
